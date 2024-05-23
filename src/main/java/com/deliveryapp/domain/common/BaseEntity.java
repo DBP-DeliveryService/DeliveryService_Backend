@@ -1,4 +1,4 @@
-package com.deliveryapp.domain.user.domain.common;
+package com.deliveryapp.domain.common;
 
 import jakarta.persistence.*;
 import lombok.Getter;
