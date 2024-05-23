@@ -1,0 +1,71 @@
+package com.deliveryapp.domain.store.domain;
+
+import com.deliveryapp.domain.category.domain.DetailCategory;
+import com.deliveryapp.domain.common.BaseEntity;
+import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Table(name = "Store")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
+public class Store extends BaseEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false)
+    private Long id;
+
+    @Column(name = "storeName")
+    private String storeName;
+
+    @Column(name = "storeAddress")
+    private String storeAddress;
+
+    @Column(name = "storePictureUrl")
+    private String storePictureUrl;
+
+    @Column(name = "storePhoneNum")
+    private String storePhoneNum;
+
+    @Column(name = "storeContent")
+    private String storeContent;
+
+    @Column(name = "rating")
+    private Integer rating;
+
+    @Column(name = "storeHour")
+    private String storeHour;
+
+    @Column(name = "operateStatus")
+    private String operateStatus;
+
+    @Column(name = "detailOperateStatus")
+    private String detailOperateStatus;
+
+    @Column(name = "minPrice")
+    private String minPrice;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "detail_category_id")
+    private DetailCategory detailCategory;
+
+
+
+    @Builder
+    public Store(String storeName, String storeAddress, String storePictureUrl, String storePhoneNum, String storeContent, Integer rating, String storeHour, String operateStatus, String detailOperateStatus, String minPrice) {
+        this.storeName = storeName;
+        this.storeAddress = storeAddress;
+        this.storePictureUrl = storePictureUrl;
+        this.storePhoneNum = storePhoneNum;
+        this.storeContent = storeContent;
+        this.rating = rating;
+        this.storeHour = storeHour;
+        this.operateStatus = operateStatus;
+        this.detailOperateStatus = detailOperateStatus;
+        this.minPrice = minPrice;
+    }
+}
