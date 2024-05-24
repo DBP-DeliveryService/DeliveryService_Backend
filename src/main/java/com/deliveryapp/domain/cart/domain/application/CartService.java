@@ -1,6 +1,7 @@
 package com.deliveryapp.domain.cart.domain.application;
 
 import com.deliveryapp.domain.cart.domain.Cart;
+import com.deliveryapp.domain.cart.domain.dto.CartListRes;
 import com.deliveryapp.domain.cart.domain.dto.CartReq;
 import com.deliveryapp.domain.cart.domain.repository.CartRepository;
 import com.deliveryapp.domain.menu.domain.Menu;
@@ -11,6 +12,9 @@ import com.deliveryapp.global.payload.Message;
 import com.deliveryapp.global.payload.ResponseCustom;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -33,5 +37,22 @@ public class CartService {
         return ResponseCustom.OK(Message.builder()
                 .message("장바구니에 메뉴가 추가되었습니다.")
                 .build());
+    }
+
+    public ResponseCustom<List<CartListRes>> findCartList() {
+
+        List<Cart> cartList = cartRepository.findAll();
+
+        List<CartListRes> cartListRes = cartList.stream()
+                .map(cart -> new CartListRes(
+                        cart.getMenu().getMenuName(),
+                        cart.getQuantity(),
+                        cart.getMenu().getMenuContent(),
+                        cart.getMenu().getPrice()
+                ))
+                .collect(Collectors.toList());
+
+
+        return ResponseCustom.OK(cartListRes);
     }
 }

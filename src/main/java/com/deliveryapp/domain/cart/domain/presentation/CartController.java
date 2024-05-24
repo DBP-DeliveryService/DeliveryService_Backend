@@ -1,6 +1,7 @@
 package com.deliveryapp.domain.cart.domain.presentation;
 
 import com.deliveryapp.domain.cart.domain.application.CartService;
+import com.deliveryapp.domain.cart.domain.dto.CartListRes;
 import com.deliveryapp.domain.cart.domain.dto.CartReq;
 import com.deliveryapp.domain.category.dto.SearchCategoryRes;
 import com.deliveryapp.global.payload.ErrorResponse;
@@ -39,5 +40,16 @@ public class CartController {
             @Parameter(description = "수량을 입력해주세요.") @RequestBody CartReq cartReq
     ) {
         return cartService.addMenuInCart(menuId, cartReq);
+    }
+
+    @Operation(summary = "장바구니 조회", description = "장바구니에 담긴 메뉴를 조회합니다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "장바구니 조회 성공", content = {@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = CartListRes.class)))}),
+            @ApiResponse(responseCode = "400", description = "장바구니 조회 실패", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))}),
+    })
+    @GetMapping()
+    public ResponseCustom<List<CartListRes>> addMenuInCart(
+    ) {
+        return cartService.findCartList();
     }
 }
