@@ -53,6 +53,9 @@ public class Store extends BaseEntity {
     @JoinColumn(name = "detail_category_id")
     private DetailCategory detailCategory;
 
+    @OneToOne(mappedBy = "store", fetch = FetchType.LAZY)
+    private Delivery delivery;
+
 
 
     @Builder
