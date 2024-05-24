@@ -11,11 +11,12 @@ import lombok.NoArgsConstructor;
 public class CategoryRes {
     private Long id;
     private String categoryName;
+    private String categoryImgUrl;
 
 
-
-    public CategoryRes(Long id, String categoryName) {
+    public CategoryRes(Long id, String categoryName, String categoryImgUrl) {
         this.id = id;
         this.categoryName = categoryName;
+        this.categoryImgUrl = categoryImgUrl;
     }
 }
