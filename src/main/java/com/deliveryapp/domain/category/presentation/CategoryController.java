@@ -3,7 +3,6 @@ package com.deliveryapp.domain.category.presentation;
 import com.deliveryapp.domain.category.application.CategoryService;
 import com.deliveryapp.domain.category.dto.SearchCategoryRes;
 import com.deliveryapp.global.payload.ErrorResponse;
-import com.deliveryapp.global.payload.Message;
 import com.deliveryapp.global.payload.ResponseCustom;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -27,7 +26,7 @@ import java.util.List;
 @RequestMapping("/categories")
 public class CategoryController {
 
-    private final CategoryService categoryService; //
+    private final CategoryService categoryService;
 
 
     @Operation(summary = "카테고리별 음식점 리스트 조회", description = "음식점 리스트를 카테고리에 따라 조회합니다.")
