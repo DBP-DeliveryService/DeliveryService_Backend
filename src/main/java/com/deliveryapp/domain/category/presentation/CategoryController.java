@@ -27,7 +27,7 @@ import java.util.List;
 @RequestMapping("/categories")
 public class CategoryController {
 
-    private final CategoryService categoryService;
+    private final CategoryService categoryService; //
 
 
     @Operation(summary = "카테고리별 음식점 리스트 조회", description = "음식점 리스트를 카테고리에 따라 조회합니다.")
