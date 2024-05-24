@@ -1,5 +1,7 @@
 package com.deliveryapp.domain.store.application;
 
+import com.deliveryapp.domain.menu.domain.Menu;
+import com.deliveryapp.domain.menu.domain.repository.MenuRepository;
 import com.deliveryapp.domain.store.domain.Store;
 import com.deliveryapp.domain.store.domain.repository.StoreRepository;
 import com.deliveryapp.domain.store.dto.MenuRes;
@@ -18,6 +20,7 @@ import java.util.stream.Collectors;
 public class StoreService {
 
     private final StoreRepository storeRepository;
+    private final MenuRepository menuRepository;
 
     @Transactional
     public ResponseCustom<StoreRes> searchStoresByCategory(Long storeId) {
@@ -42,5 +45,19 @@ public class StoreService {
                 .build();
 
         return ResponseCustom.OK(storeRes);
+    }
+
+    @Transactional
+    public ResponseCustom<MenuRes> searchOneMenu(Long menuId) {
+        Menu menu = menuRepository.findById(menuId).orElseThrow(RuntimeException::new);
+
+        MenuRes menuRes = MenuRes.builder()
+                .menuName(menu.getMenuName())
+                .menuContent(menu.getMenuContent())
+                .menuPictureUrl(menu.getMenuPictureUrl())
+                .price(menu.getPrice())
+                .build();
+
+        return ResponseCustom.OK(menuRes);
     }
 }
