@@ -3,8 +3,8 @@ package com.deliveryapp.domain.category.application;
 import com.deliveryapp.domain.category.domain.DetailCategory;
 import com.deliveryapp.domain.category.domain.repository.DetailCategoryRepository;
 import com.deliveryapp.domain.category.dto.CategoryRes;
+import com.deliveryapp.domain.category.dto.HomeRes;
 import com.deliveryapp.domain.category.dto.SearchCategoryRes;
-import com.deliveryapp.domain.store.domain.Delivery;
 import com.deliveryapp.domain.store.domain.Store;
 import com.deliveryapp.domain.store.domain.repository.StoreRepository;
 import com.deliveryapp.global.payload.ResponseCustom;
@@ -41,8 +41,10 @@ public class CategoryService {
         return ResponseCustom.OK(searchCategoryResList);
     }
 
-    public ResponseCustom<List<CategoryRes>> getAllCategories() {
+    public ResponseCustom<HomeRes> getAllCategories() {
         List<DetailCategory> detailCategoryList = detailCategoryRepository.findAll();
+        List<DetailCategory> top5CategoryList = detailCategoryRepository.findByIdBetween(3L, 7L);
+
 
         List<CategoryRes> categoryResList = detailCategoryList.stream().map(category ->
                 CategoryRes.builder()
@@ -50,6 +52,22 @@ public class CategoryService {
                         .categoryName(category.getDetailCategoryName())
                         .build()
         ).collect(Collectors.toList());
-        return ResponseCustom.OK(categoryResList);
+
+        List<CategoryRes> top5categoryList = top5CategoryList.stream().map(category ->
+                CategoryRes.builder()
+                        .id(category.getId())
+                        .categoryName(category.getDetailCategoryName())
+                        .categoryImgUrl(category.getCategoryImgUrl())
+                        .build()
+        ).collect(Collectors.toList());
+
+
+        HomeRes homre = HomeRes.builder()
+                .categoryResList(categoryResList)
+                .top5CategoryResList(top5categoryList)
+                .build();
+
+
+        return ResponseCustom.OK(homre);
     }
 }

@@ -22,6 +22,9 @@ public class DetailCategory {
     @Column(name = "detail_category_name")
     private String detailCategoryName;
 
+    @Column(name = "category_img_url")
+    private String categoryImgUrl;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;

@@ -2,6 +2,7 @@ package com.deliveryapp.domain.category.presentation;
 
 import com.deliveryapp.domain.category.application.CategoryService;
 import com.deliveryapp.domain.category.dto.CategoryRes;
+import com.deliveryapp.domain.category.dto.HomeRes;
 import com.deliveryapp.domain.category.dto.SearchCategoryRes;
 import com.deliveryapp.global.payload.ErrorResponse;
 import com.deliveryapp.global.payload.ResponseCustom;
@@ -48,7 +49,7 @@ public class CategoryController {
             @ApiResponse(responseCode = "400", description = "전체 카테고리 조회 실패", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))}),
     })
     @GetMapping()
-    public ResponseCustom<List<CategoryRes>> getAllCategories(
+    public ResponseCustom<HomeRes> getAllCategories(
     ) {
         return categoryService.getAllCategories();
     }
