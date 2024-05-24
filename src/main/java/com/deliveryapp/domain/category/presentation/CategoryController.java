@@ -3,7 +3,6 @@ package com.deliveryapp.domain.category.presentation;
 import com.deliveryapp.domain.category.application.CategoryService;
 import com.deliveryapp.domain.category.dto.SearchCategoryRes;
 import com.deliveryapp.global.payload.ErrorResponse;
-import com.deliveryapp.global.payload.Message;
 import com.deliveryapp.global.payload.ResponseCustom;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
