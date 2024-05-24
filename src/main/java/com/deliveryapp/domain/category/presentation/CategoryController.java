@@ -1,6 +1,7 @@
 package com.deliveryapp.domain.category.presentation;
 
 import com.deliveryapp.domain.category.application.CategoryService;
+import com.deliveryapp.domain.category.dto.CategoryRes;
 import com.deliveryapp.domain.category.dto.SearchCategoryRes;
 import com.deliveryapp.global.payload.ErrorResponse;
 import com.deliveryapp.global.payload.ResponseCustom;
@@ -39,6 +40,17 @@ public class CategoryController {
             @Parameter(description = "카테고리의 id를 입력해주세요.") @PathVariable Long categoryId
     ) {
         return categoryService.searchStoresByCategory(categoryId);
+    }
+
+    @Operation(summary = "카테고리 조회", description = "전체 카테고리를 조회합니다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "전체 카테고리 조회 성공", content = {@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = CategoryRes.class)))}),
+            @ApiResponse(responseCode = "400", description = "전체 카테고리 조회 실패", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))}),
+    })
+    @GetMapping()
+    public ResponseCustom<List<CategoryRes>> getAllCategories(
+    ) {
+        return categoryService.getAllCategories();
     }
 
 

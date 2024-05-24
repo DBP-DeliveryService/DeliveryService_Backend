@@ -1,5 +1,8 @@
 package com.deliveryapp.domain.category.application;
 
+import com.deliveryapp.domain.category.domain.DetailCategory;
+import com.deliveryapp.domain.category.domain.repository.DetailCategoryRepository;
+import com.deliveryapp.domain.category.dto.CategoryRes;
 import com.deliveryapp.domain.category.dto.SearchCategoryRes;
 import com.deliveryapp.domain.store.domain.Delivery;
 import com.deliveryapp.domain.store.domain.Store;
@@ -18,6 +21,7 @@ import java.util.stream.Collectors;
 public class CategoryService {
 
     private final StoreRepository storeRepository;
+    private final DetailCategoryRepository detailCategoryRepository;
     public ResponseCustom<List<SearchCategoryRes>> searchStoresByCategory(Long categoryId) {
         List<Store> storeList = storeRepository.findAllByCategoryId(categoryId);
 
@@ -35,5 +39,17 @@ public class CategoryService {
 
 
         return ResponseCustom.OK(searchCategoryResList);
+    }
+
+    public ResponseCustom<List<CategoryRes>> getAllCategories() {
+        List<DetailCategory> detailCategoryList = detailCategoryRepository.findAll();
+
+        List<CategoryRes> categoryResList = detailCategoryList.stream().map(category ->
+                CategoryRes.builder()
+                        .id(category.getId())
+                        .categoryName(category.getDetailCategoryName())
+                        .build()
+        ).collect(Collectors.toList());
+        return ResponseCustom.OK(categoryResList);
     }
 }
