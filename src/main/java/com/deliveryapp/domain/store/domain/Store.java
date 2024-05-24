@@ -2,11 +2,15 @@ package com.deliveryapp.domain.store.domain;
 
 import com.deliveryapp.domain.category.domain.DetailCategory;
 import com.deliveryapp.domain.common.BaseEntity;
+import com.deliveryapp.domain.menu.domain.Menu;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Store")
@@ -55,6 +59,9 @@ public class Store extends BaseEntity {
 
     @OneToOne(mappedBy = "store", fetch = FetchType.LAZY)
     private Delivery delivery;
+
+    @OneToMany(mappedBy = "store", orphanRemoval = true)
+    private List<Menu> menu = new ArrayList<>();
 
 
 

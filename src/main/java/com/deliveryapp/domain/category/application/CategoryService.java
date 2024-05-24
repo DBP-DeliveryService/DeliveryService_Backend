@@ -22,6 +22,8 @@ public class CategoryService {
 
     private final StoreRepository storeRepository;
     private final DetailCategoryRepository detailCategoryRepository;
+
+    @Transactional
     public ResponseCustom<List<SearchCategoryRes>> searchStoresByCategory(Long categoryId) {
         List<Store> storeList = storeRepository.findAllByCategoryId(categoryId);
 
@@ -41,6 +43,7 @@ public class CategoryService {
         return ResponseCustom.OK(searchCategoryResList);
     }
 
+    @Transactional
     public ResponseCustom<HomeRes> getAllCategories() {
         List<DetailCategory> detailCategoryList = detailCategoryRepository.findAll();
         List<DetailCategory> top5CategoryList = detailCategoryRepository.findByIdBetween(3L, 7L);
