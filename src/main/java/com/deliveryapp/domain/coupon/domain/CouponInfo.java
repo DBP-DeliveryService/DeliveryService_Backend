@@ -17,18 +17,21 @@ public class CouponInfo {
     @Column(name = "id", updatable = false)
     private Long id;
 
-    @Column(name = "couponName")
-    private Integer couponName;
+    @Column(name = "coupon_name")
+    private String couponName;
 
-    @Column(name = "couponContent")
-    private Integer couponContent;
+    @Column(name = "coupon_content")
+    private String couponContent;
 
-    @Column(name = "discountAmount")
+    @Column(name = "discount_amount")
     private Integer discountAmount;
 
-    @Column(name = "expiredDate")
+    @Column(name = "expired_date")
     private Integer expiredDate;
 
-    @Column(name = "minPrice")
+    @Column(name = "min_price")
     private Integer minPrice;
+
+    @Column(name = "coupon_code")
+    private String couponCode;
 }
