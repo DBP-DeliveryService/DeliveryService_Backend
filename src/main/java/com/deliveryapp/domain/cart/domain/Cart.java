@@ -2,6 +2,7 @@ package com.deliveryapp.domain.cart.domain;
 
 import com.deliveryapp.domain.common.BaseEntity;
 import com.deliveryapp.domain.menu.domain.Menu;
+import com.deliveryapp.domain.order.domain.Order;
 import com.deliveryapp.domain.user.domain.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -32,11 +33,19 @@ public class Cart extends BaseEntity {
     @JoinColumn(name = "menu_id")
     private Menu menu;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
+    private Order order;
+
 
     @Builder
     public Cart(Integer quantity, User user, Menu menu) {
         this.quantity = quantity;
         this.user = user;
         this.menu = menu;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }
