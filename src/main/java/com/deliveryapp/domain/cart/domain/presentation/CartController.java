@@ -3,7 +3,6 @@ package com.deliveryapp.domain.cart.domain.presentation;
 import com.deliveryapp.domain.cart.domain.application.CartService;
 import com.deliveryapp.domain.cart.domain.dto.CartListRes;
 import com.deliveryapp.domain.cart.domain.dto.CartReq;
-import com.deliveryapp.domain.category.dto.SearchCategoryRes;
 import com.deliveryapp.global.payload.ErrorResponse;
 import com.deliveryapp.global.payload.Message;
 import com.deliveryapp.global.payload.ResponseCustom;
@@ -51,5 +50,17 @@ public class CartController {
     public ResponseCustom<List<CartListRes>> addMenuInCart(
     ) {
         return cartService.findCartList();
+    }
+
+    @Operation(summary = "장바구니 삭제", description = "장바구니에 담긴 메뉴를 삭제합니다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "장바구니 삭제 성공", content = {@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Message.class)))}),
+            @ApiResponse(responseCode = "400", description = "장바구니 삭제 실패", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))}),
+    })
+    @DeleteMapping("/{cartId}")
+    public ResponseCustom<Message> deleteMenuInCart(
+            @Parameter(description = "장바구니의 id를 입력해주세요.") @PathVariable Long cartId
+    ) {
+        return cartService.deleteCartOne(cartId);
     }
 }
