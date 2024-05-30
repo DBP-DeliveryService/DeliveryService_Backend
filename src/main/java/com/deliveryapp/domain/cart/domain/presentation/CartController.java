@@ -63,4 +63,17 @@ public class CartController {
     ) {
         return cartService.deleteCartOne(cartId);
     }
+
+    @Operation(summary = "장바구니 수정", description = "장바구니에 담긴 메뉴 수량을 수정합니다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "장바구니 수정 성공", content = {@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Message.class)))}),
+            @ApiResponse(responseCode = "400", description = "장바구니 수정 실패", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))}),
+    })
+    @PatchMapping("/{cartId}")
+    public ResponseCustom<Message> modifyMenuInCart(
+            @Parameter(description = "수정할 cart의 id를 입력해주세요.") @PathVariable Long cartId,
+            @Parameter(description = "수정할 quantity를 입력해주세요.") @RequestParam Integer quantity
+    ) {
+        return cartService.modifyCartOne(cartId, quantity);
+    }
 }

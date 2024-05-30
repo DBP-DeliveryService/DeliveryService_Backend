@@ -71,4 +71,14 @@ public class CartService {
 
         return ResponseCustom.OK(Message.builder().message("장바구니에서 삭제되었습니다.").build());
     }
+
+    @Transactional
+    public ResponseCustom<Message> modifyCartOne(Long cartId, Integer quantity) {
+        Cart cart = cartRepository.findById(cartId).orElseThrow(RuntimeException::new);
+
+        cart.updateCart(cart.getId(), quantity);
+
+
+        return ResponseCustom.OK(Message.builder().message("수량이 수정되었습니다.").build());
+    }
 }

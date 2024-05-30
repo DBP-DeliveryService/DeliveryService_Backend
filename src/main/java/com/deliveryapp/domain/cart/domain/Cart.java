@@ -48,4 +48,9 @@ public class Cart extends BaseEntity {
     public void setOrder(Order order) {
         this.order = order;
     }
+
+    public void updateCart(Long id, Integer quantity) {
+        this.id = id;
+        this.quantity = quantity;
+    }
 }
