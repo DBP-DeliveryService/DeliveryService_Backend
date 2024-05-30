@@ -8,12 +8,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class CartListRes {
+    private Long id;
     private String menuName;
     private Integer quantity;
     private String menuContent;
     private Long price;
 
-    public CartListRes(String menuName, Integer quantity, String menuContent, Long price) {
+    public CartListRes(Long id, String menuName, Integer quantity, String menuContent, Long price) {
+        this.id = id;
         this.menuName = menuName;
         this.quantity = quantity;
         this.menuContent = menuContent;

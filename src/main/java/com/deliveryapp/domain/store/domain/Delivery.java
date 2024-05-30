@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "Delivery")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+
 public class Delivery {
 
     @Id
