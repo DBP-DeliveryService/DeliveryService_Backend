@@ -2,6 +2,7 @@ package com.deliveryapp.domain.coupon.presentation;
 
 
 import com.deliveryapp.domain.coupon.application.CouponService;
+import com.deliveryapp.domain.coupon.dto.CouponListRes;
 import com.deliveryapp.domain.coupon.dto.CouponReq;
 import com.deliveryapp.domain.order.dto.OrderReq;
 import com.deliveryapp.global.payload.ErrorResponse;
@@ -16,10 +17,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Coupon", description = "Coupon API")
 @RequiredArgsConstructor
@@ -39,5 +37,15 @@ public class CouponController {
             @Parameter(description = "CouponReq를 참고해주세요.") @RequestBody CouponReq couponReq
     ) {
         return couponService.generateCoupon(couponReq);
+    }
+
+    @Operation(summary = "보유 쿠폰 조회하기", description = "보유하고 있는 쿠폰들을 조회합니다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "쿠폰 조회 성공", content = {@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = CouponListRes.class)))}),
+            @ApiResponse(responseCode = "400", description = "쿠폰 조회 실패", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))}),
+    })
+    @GetMapping("")
+    public ResponseCustom<CouponListRes> findCouponList() {
+        return couponService.findCouponList();
     }
 }
