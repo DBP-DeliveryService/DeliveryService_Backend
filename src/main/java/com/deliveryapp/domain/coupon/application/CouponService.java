@@ -33,19 +33,18 @@ public class CouponService {
 
         CouponInfo couponInfo = couponInfoRepository.findByCouponCode(couponReq.getCouponCode());
         if (couponInfo == null) {
-            return ResponseCustom.OK(Message.builder()
-                            .message("유효하지 않은 쿠폰 코드입니다.")
+            return ResponseCustom.BAD_REQUEST(Message.builder()
+                    .message("유효하지 않은 쿠폰 코드입니다.")
                     .build());
         } else {
             Coupon coupon = Coupon.builder()
                     .couponInfo(couponInfo)
                     .couponStatus("Available")
-                    .couponInfo(couponInfo)
                     .user(userRepository.findById(1L).orElseThrow(RuntimeException::new))
                     .build();
             couponRepository.save(coupon);
             return ResponseCustom.OK(Message.builder()
-                            .message("쿠폰 발급에 성공했습니다."+ "쿠폰 아이디는: " + coupon.getId())
+                    .message("쿠폰 발급에 성공했습니다."+ "쿠폰 아이디는: " + coupon.getId())
                     .build());
         }
     }
