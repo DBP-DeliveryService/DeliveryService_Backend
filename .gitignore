@@ -36,3 +36,6 @@ out/
 ### VS Code ###
 .vscode/
 application.yml
+report.html
+report.json
+scenario-test-config.yaml
