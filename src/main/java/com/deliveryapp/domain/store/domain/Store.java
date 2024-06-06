@@ -13,7 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "Store")
+@Table(name = "Store", indexes = {
+        @Index(name = "idx_store_storeName", columnList = "storeName")
+})
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class Store extends BaseEntity {

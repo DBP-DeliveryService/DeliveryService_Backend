@@ -1,5 +1,6 @@
 package com.deliveryapp.domain.store.application;
 
+import com.deliveryapp.domain.category.dto.SearchCategoryRes;
 import com.deliveryapp.domain.menu.domain.Menu;
 import com.deliveryapp.domain.menu.domain.repository.MenuRepository;
 import com.deliveryapp.domain.store.domain.Store;
@@ -59,5 +60,21 @@ public class StoreService {
                 .build();
 
         return ResponseCustom.OK(menuRes);
+    }
+
+    public ResponseCustom<SearchCategoryRes> searchStoresByStoreName(String storeName) {
+        Store store = storeRepository.findByStoreName(storeName).orElseThrow(NullPointerException::new);
+
+        SearchCategoryRes searchCategoryRes = SearchCategoryRes
+                .builder()
+                .storeName(store.getStoreName())
+                .detailOpreateStatus(store.getDetailOperateStatus())
+                .rating(store.getRating())
+                .minPrice(Integer.parseInt(store.getMinPrice()))
+                .minDeliveryTime(store.getDelivery().getMinDeliveryTime())
+                .deliveryTip(store.getDelivery().getDeliveryTip())
+                .detailCategoryName(store.getDetailCategory().getDetailCategoryName())
+                .build();
+        return ResponseCustom.OK(searchCategoryRes);
     }
 }
