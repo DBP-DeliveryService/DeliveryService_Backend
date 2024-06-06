@@ -1,5 +1,5 @@
 config:
-  target: 'http://localhost:8080' # 어디에 요청을 할 것인지
+  target: 'http://localhost:8080' # 요청을 보낼 대상
   phases:
     - duration: 30  # 30초 동안
       arrivalRate: 3  # 초당 3개의 요청을 보낸다
@@ -15,10 +15,8 @@ config:
       arrivalRate: 30
       rampTo: 10
       name: End of load
-scenarios: # 한 명의 사용자가 어떤 순서대로 요청을 해나갈 것인지 그것에 대해 작성하는 것
-  - name: "search store by name"
+scenarios: # 한 명의 사용자가 어떤 순서대로 요청을 해나갈 것인지 작성
+  - name: "search stores by category"
     flow:
       - get:
-          url: "/stores/search"
-          qs:
-            storeName: "연희보리밥" # 가게 이름을 지정
+          url: "/categories/1"
